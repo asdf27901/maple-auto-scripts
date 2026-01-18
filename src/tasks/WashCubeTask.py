@@ -57,7 +57,7 @@ class WashCubeTask(MyBaseTask):
             self.notification("没有勾选任务配置，执行失败")
             return
 
-        if self.config['需要洗的装备件数'] <= 0 or self.config['需要洗的装备件数'] > 32:
+        if self.config['需要洗的装备件数'] <= 0 or self.config['需要洗的装备件数'] > 28:
             self.notification("输入装备件数有误，任务无法执行")
             return
 
@@ -309,6 +309,6 @@ class WashCubeTask(MyBaseTask):
         if key == "结果类型" and not value:
             self.log_error("没有勾选结果类型，任务无法执行")
             return "没有勾选结果类型，任务无法执行"
-        if key == "需要洗的装备件数" and (not value or value <= 0 or value > 32):
+        if key == "需要洗的装备件数" and (not value or value <= 0 or value > 28):
             self.log_error("输入装备件数有误，任务无法执行")
             return "输入装备件数有误，任务无法执行"
