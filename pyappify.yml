@@ -2,7 +2,7 @@ name: "ok-maple"
 uac: true
 profiles:
   - name: "China"
-    git_url: "https://github.com/asdf27901/maple-auto-scripts.git"
+    git_url: "https://github.com/asdf27901/maple-auto-scripts"
     admin: true
     main_script: "main.py"
     requires_python: "3.12"
