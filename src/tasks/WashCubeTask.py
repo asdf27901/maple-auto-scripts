@@ -271,8 +271,8 @@ class WashCubeTask(MyBaseTask):
         attr_num = res_l[2]
 
         if res_type not in expect_type:
-            self.info_set(key="dll校验结果类型为", value=res_type)
-            self.log_info(f"dll校验结果类型为：{res_type}")
+            self.info_set(key="期望结果类型不一致", value=f"结果类型为: {res_type}")
+            self.log_info(f"期望结果类型不一致，结果类型为：{res_type}")
             return False
 
         if res_attr not in "".join(expect_attr):
