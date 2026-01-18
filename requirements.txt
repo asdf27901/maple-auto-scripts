@@ -4,7 +4,11 @@
 #
 #    pip-compile requirements.in
 #
-ok-script==1.0.16
+setuptools==80.9.0
+packaging==25.0
+wheel==0.45.1
+pynput==1.8.1
+ok-script==1.0.26
     # via -r requirements.in
 onnxocr-ppocrv4==0.0.5
     # via -r requirements.in
