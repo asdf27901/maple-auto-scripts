@@ -160,7 +160,11 @@ class WashCubeTask(MyBaseTask):
             self.select_cube_and_equ(cue_box, equ_box)
 
             while True:
-                self.key_down_space_and_find_success_icon()
+                success_icon = self.key_down_space_and_find_success_icon()
+                if not success_icon:
+                    self.log_error("没有识别到Success特征，手动点击一下当前魔方")
+                    self.click(*cue_box.center())
+                    self.click(*cue_box.center())
                 self.sleep(1.5)
 
                 res, cue_box = self.check_cube_result(cube=cube)
@@ -195,7 +199,7 @@ class WashCubeTask(MyBaseTask):
         self.right_click(equ_box)
         self.sleep(0.1)
 
-    def key_down_space_and_find_success_icon(self):
+    def key_down_space_and_find_success_icon(self) -> Optional[Box]:
         # 按下空格开始洗
         self.send_key('space')
         self.sleep(0.4)
@@ -203,11 +207,13 @@ class WashCubeTask(MyBaseTask):
         self.sleep(0.4)
         self.send_key('space')
 
-        self.wait_feature(
+        self.log_info('已完成洗魔方空格按下')
+
+        return self.wait_feature(
             feature="Success",
             horizontal_variance=0.1,
             vertical_variance=0.1,
-            threshold=0.8,
+            threshold=0.7,
             time_out=5
         )
 
