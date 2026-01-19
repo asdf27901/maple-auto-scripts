@@ -26,8 +26,9 @@ class WashCubeTask(MyBaseTask):
                                         'options': [
                                             '物攻', '魔攻',
                                             '力量', '敏捷', '智力', '运气', '血量', '全属性',
-                                            '1暴伤(只保留同属性大大大)', '2暴伤(不考虑第三条属性)', '3暴伤(怎么可能?)',
-                                            '1冷却(只保留同属性大大大)', '2冷却(不考虑第三条属性)', '3冷却(怎么可能?)'
+                                            '1爆伤(只保留同属性大大大)', '2爆伤(不考虑第三条属性)', '3爆伤(怎么可能?)',
+                                            '1冷却(只保留同属性大大大)', '2冷却(不考虑第三条属性)', '3冷却(怎么可能?)',
+                                            '测试(勾选了之后洗一下就换装备)'
                                         ]}
         self.config_type['结果类型'] = {'type': 'multi_selection',
                                         'options': ["大大大", "大大小"]}
@@ -236,6 +237,15 @@ class WashCubeTask(MyBaseTask):
                       f'第一条：{ocr_res1}\n'
                       f'第二条：{ocr_res2}\n'
                       f'第三条：{ocr_res3}')
+
+        if '测试' in "".join(self.config['期望属性']):
+            cube_box = self.find_one(
+                feature_name=cube,
+                vertical_variance=0.1,
+                horizontal_variance=0.13,
+                threshold=0.8  # 选中会出现蓝色背景，降低置信度
+            )
+            return True, cube_box
 
         # 将获取结果组装成列表传入
         lines = [ocr_res1.encode('gbk'), ocr_res2.encode('gbk'), ocr_res3.encode('gbk')]
