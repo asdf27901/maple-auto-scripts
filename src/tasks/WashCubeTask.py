@@ -274,36 +274,31 @@ class WashCubeTask(MyBaseTask):
         return rgb_p > 0.8
 
     def get_result_from_washcube_dll(self, lines: list[bytes], expect_attr: list[str], expect_type: list[str]) -> bool:
-        res_ptr: str = ctypes.cast(self.check_func(*lines), ctypes.c_char_p).value.decode('gbk')
+        res_ptr: str = ctypes.cast(self.check_func(*lines), ctypes.c_char_p).value.decode('utf-8')
+
+        self.info_set("dll返回结果为", res_ptr)
 
         if '垃圾' in res_ptr:
-            self.info_set(key="dll校验结果", value="垃圾")
-            self.log_info("dll校验结果为垃圾")
             return False
 
         res_l = res_ptr.split('|')
         res_type = res_l[0]
         res_attr = res_l[1]
         attr_num = res_l[2]
+        extra_attr = res_l[3]
 
         if res_type not in expect_type:
-            self.info_set(key="期望结果类型不一致", value=f"结果类型为: {res_type}")
-            self.log_info(f"期望结果类型不一致，结果类型为：{res_type}")
             return False
 
         if res_attr not in "".join(expect_attr):
-            self.info_set(key=f"洗的出属性：{res_attr}", value="不在期望属性中")
-            self.log_info(f"洗的出属性：{res_attr}，不在期望属性中")
             return False
 
         # 如果是暴伤或者冷却，那么判断是否符合词条数目
-        if res_attr in ['暴伤', '冷却'] and (attr_num + res_attr) not in "".join(expect_attr):
-            self.info_set(key=f"洗的出属性：{attr_num + res_attr}", value="不在期望属性中")
-            self.log_info(f"洗的出属性：{attr_num + res_attr}，不在期望属性中")
+        if res_attr in ['爆伤', '冷却'] \
+                and (attr_num + res_attr) not in "".join(expect_attr) \
+                or (extra_attr != '未知' and extra_attr not in expect_attr):
             return False
         elif int(attr_num) <= 1:
-            self.info_set(key=f"洗的出属性：{attr_num + res_attr}", value="不在期望属性中")
-            self.log_info(f"洗的出属性：{attr_num + res_attr}，不在期望属性中")
             return False
 
         return True

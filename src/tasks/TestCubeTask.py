@@ -25,7 +25,7 @@ class TestCubeTask(MyBaseTask):
                                         'options': [
                                             '物攻', '魔攻',
                                             '力量', '敏捷', '智力', '运气', '血量', '全属性',
-                                            '1暴伤(只保留同属性大大大)', '2暴伤(不考虑第三条属性)', '3暴伤(怎么可能?)',
+                                            '1爆伤(只保留同属性大大大)', '2爆伤(不考虑第三条属性)', '3爆伤(怎么可能?)',
                                             '1冷却(只保留同属性大大大)', '2冷却(不考虑第三条属性)', '3冷却(怎么可能?)'
                                         ]}
         self.config_type['结果类型'] = {'type': 'multi_selection',
@@ -64,7 +64,9 @@ class TestCubeTask(MyBaseTask):
             res_ptr: str = ctypes.cast(self.check_func(ocr_res1.encode('gbk'),
                                                        ocr_res2.encode('gbk'),
                                                        ocr_res3.encode('gbk')),
-                                       ctypes.c_char_p).value.decode('gbk')
+                                       ctypes.c_char_p).value.decode('utf-8')
+
+            self.info_set("dll输出结果为", res_ptr)
 
             if '垃圾' in res_ptr:
                 self.info_set(key="dll校验结果", value="垃圾")
@@ -74,8 +76,7 @@ class TestCubeTask(MyBaseTask):
             res_type = res_l[0]
             res_attr = res_l[1]
             attr_num = res_l[2]
-
-            self.info_set("dll输出结果为", res_ptr)
+            extra_attr = res_l[3]
 
             if res_type not in self.config['结果类型']:
                 self.info_set(key="期望结果类型不一致", value=f"结果类型为: {res_type}")
@@ -84,8 +85,10 @@ class TestCubeTask(MyBaseTask):
                 self.info_set(key=f"洗的出属性：{res_attr}", value="不在期望属性中")
 
             # 如果是暴伤或者冷却，那么判断是否符合词条数目
-            if res_attr in ['暴伤', '冷却'] and (attr_num + res_attr) not in "".join(self.config['期望属性']):
-                self.info_set(key=f"洗的出属性：{attr_num + res_attr}", value="不在期望属性中")
+            if res_attr in ['爆伤', '冷却'] \
+                    and (attr_num + res_attr) not in "".join(self.config['期望属性']) \
+                    or (extra_attr != '未知' and extra_attr not in self.config['期望属性']):
+                self.info_set(key=f"洗的出属性：{attr_num + res_attr + extra_attr}", value="不在期望属性中")
             elif int(attr_num) <= 1:
                 self.info_set(key=f"洗的出属性：{attr_num + res_attr}", value="不在期望属性中")
 
