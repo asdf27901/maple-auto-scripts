@@ -8,4 +8,3 @@ README.md
 i18n
 assets
 pyappify.yml
-libcube64.dll
