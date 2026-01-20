@@ -188,6 +188,8 @@ class WashCubeTask(MyBaseTask):
                     self.click(*apd_box.center())
                     self.sleep(0.4)
                     self.click(*cue_box.center())
+                    self.sleep(0.5)
+                    self.move(390, 715)
                     continue
                 self.sleep(1.5 * self.rate)
 
