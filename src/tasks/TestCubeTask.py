@@ -36,7 +36,7 @@ class TestCubeTask(MyBaseTask):
 
         root_path = self.executor.config["project_root"]
         # 加载dll
-        dll_path = os.path.join(root_path, 'libcube64.dll')
+        dll_path = os.path.join(root_path, 'src', 'libcube64.dll')
         lib = ctypes.CDLL(dll_path)
 
         self.check_func = lib['?washcube@@YAPEADPEBD00@Z']
