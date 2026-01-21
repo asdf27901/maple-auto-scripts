@@ -118,7 +118,7 @@ config = {
         # ["ok", "DiagnosisTask"],
     ],
     'trigger_tasks':[ # 不断执行的触发式任务
-        # ["src.tasks.MyTriggerTask", "MyTriggerTask"],
+        ["src.tasks.AutoUseReincarnation", "AutoUseReincarnation"],
     ],
     'custom_tabs': [
     ],
