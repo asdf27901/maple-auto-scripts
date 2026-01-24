@@ -4,11 +4,11 @@ import re
 import itertools
 
 _BASE_ATTR_RULES = [
-    (r"I[\w\W]*T\s*", "INT"),
-    (r"D[\w\W]*X\s*", "DEX"),
-    (r"S[\w\W]*R\s*", "STR"),
-    (r"L[\w\W]*K\s*", "LUK"),
-    (r"MAX\s*HP", "MaxHP"),
+    (r"I[\w\W]*T[\s_]*", "INT"),
+    (r"D[\w\W]*X[\s_]*", "DEX"),
+    (r"S[\w\W]*R[\s_]*", "STR"),
+    (r"L[\w\W]*K[\s_]*", "LUK"),
+    (r"MAX\s*HP[\s_]*", "MaxHP"),
 ]
 
 # 中文修正规则
@@ -74,6 +74,7 @@ def _generate_candidates():
             candidates.add(base)
             candidates.add(base + " ")  # 尾部带空格
             candidates.add(" " + base)  # 头部带空格
+            candidates.add(base + "_")
 
             # 生成中间带空格的版本 (如 S T R)
             if len(base) <= 3:
