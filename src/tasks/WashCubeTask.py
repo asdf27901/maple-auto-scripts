@@ -161,7 +161,7 @@ class WashCubeTask(MyBaseTask):
 
         # 先找魔方，如果魔方都没，直接拜拜
         for cube in cubes:
-            cue_box = self.find_one(feature_name=cube, vertical_variance=0.1, horizontal_variance=0.13)
+            cue_box = self.find_one(feature_name=cube, vertical_variance=0.1, horizontal_variance=0.2)
             if cue_box is None:
                 self.log_error(f"没有找到{cube}")
                 continue
@@ -281,7 +281,7 @@ class WashCubeTask(MyBaseTask):
         cube_box = self.find_one(
             feature_name=cube,
             vertical_variance=0.1,
-            horizontal_variance=0.13,
+            horizontal_variance=0.2,
             threshold=0.8  # 选中会出现蓝色背景，降低置信度
         )
 
