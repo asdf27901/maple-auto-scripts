@@ -7,7 +7,7 @@ class MonsterCubeTask(MyBaseTask):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.name = "自动使用轮回和拾取"
+        self.name = "自动使用记忆魔方洗三终傲天"
         self.description = "需要只保留怪怪记忆魔方，手动选择怪怪进行，傲天需要最高等级"
         self.icon = FluentIcon.ROBOT
 
