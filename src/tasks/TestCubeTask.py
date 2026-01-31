@@ -25,8 +25,9 @@ class TestCubeTask(MyBaseTask):
                                         'options': [
                                             '物攻', '魔攻',
                                             '力量', '敏捷', '智力', '运气', '血量', '全属性',
-                                            '1爆伤(只保留同属性大大大)', '2爆伤(不考虑第三条属性)', '3爆伤(怎么可能?)',
-                                            '1冷却(只保留同属性大大大)', '2冷却(不考虑第三条属性)', '3冷却(怎么可能?)'
+                                            '1爆伤(需要勾选上方属性)', '2爆伤(需要勾选上方属性)', '3爆伤(需要勾选上方属性)',
+                                            '1冷却(需要勾选上方属性)', '2冷却(需要勾选上方属性)', '3冷却(需要勾选上方属性)',
+                                            '测试(勾选了之后洗一下就换装备)'
                                         ]}
         self.config_type['结果类型'] = {'type': 'multi_selection',
                                         'options': ["大大大", "大大小"]}
@@ -89,8 +90,6 @@ class TestCubeTask(MyBaseTask):
                     and (attr_num + res_attr) not in "".join(self.config['期望属性']) \
                     or (extra_attr != '未知' and extra_attr not in self.config['期望属性']):
                 self.info_set(key=f"洗的出属性：{attr_num + res_attr + extra_attr}", value="不在期望属性中")
-            elif int(attr_num) <= 1:
-                self.info_set(key=f"洗的出属性：{attr_num + res_attr}", value="不在期望属性中")
 
             if not res1 or not res2 or not res3:
                 self.info_set(key="第一条识别结果", value=ocr_res1)

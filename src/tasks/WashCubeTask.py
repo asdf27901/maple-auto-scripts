@@ -22,7 +22,7 @@ class WashCubeTask(MyBaseTask):
             '速率因子': 1.0,
         })
         self.config_type["魔方类型"] = {'type': "multi_selection",
-                                        'options': ['Precious cube', 'Absolute cube']}
+                                        'options': ['Precious cube', 'Absolute cube', 'Memory cube(别勾)']}
         self.config_type['期望属性'] = {'type': 'multi_selection',
                                         'options': [
                                             '物攻', '魔攻',
@@ -322,8 +322,6 @@ class WashCubeTask(MyBaseTask):
         if res_attr in ['爆伤', '冷却'] \
                 and (attr_num + res_attr) not in "".join(expect_attr) \
                 or (extra_attr != '未知' and extra_attr not in expect_attr):
-            return False
-        elif int(attr_num) <= 1:
             return False
 
         return True

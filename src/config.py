@@ -3,7 +3,7 @@ import os
 import numpy as np
 from ok import ConfigOption
 
-version = "v0.0.15"
+version = "v1.0.0"
 #不需要修改version, Github Action打包会自动修改
 
 key_config_option = ConfigOption('Game Hotkey Config', { #全局配置示例
@@ -112,8 +112,8 @@ config = {
     'onetime_tasks': [  # 用户点击触发的任务
         ["src.tasks.WashCubeTask", "WashCubeTask"],
         ["src.tasks.TestCubeTask", "TestCubeTask"],
-        # ["src.tasks.MyOneTimeWithAGroup", "MyOneTimeWithAGroup"],
-        # ["src.tasks.MyOneTimeWithAGroup2", "MyOneTimeWithAGroup2"],
+        ["src.tasks.MonsterCubeTask", "MonsterCubeTask"],
+        # ["src.tasks.MonsterCubeTask", "MonsterCubeTask"],
         # ["src.tasks.MyOneTimeWithBGroup", "MyOneTimeWithBGroup"],
         # ["ok", "DiagnosisTask"],
     ],
